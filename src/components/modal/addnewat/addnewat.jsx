@@ -1,4 +1,4 @@
-import "./addnewat.scss";
+// import "./addnewat.scss";
 export default function Addnewat() {
   return (
     <div className="wrapper">

@@ -1,4 +1,4 @@
-import "./my-article.scss";
+// import "./my-article.scss";
 export default function MyArticle() {
   return (
     <div className="wrapper">

@@ -1,4 +1,4 @@
-import "./atclsettings.scss";
+// import "./atclsettings.scss";
 
 export default function Atclsettings() {
   return (

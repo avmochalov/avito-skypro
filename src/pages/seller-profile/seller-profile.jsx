@@ -1,4 +1,4 @@
-import "./sellerProfile.scss";
+// import "./sellerProfile.scss";
 
 export default function SellerProfile() {
   return (
