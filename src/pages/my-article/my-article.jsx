@@ -1,107 +1,128 @@
-// import "./my-article.scss";
+import S from "./my-article.module.scss";
 export default function MyArticle() {
   return (
-    <div className="wrapper">
-      <div className="container">
-        <header className="header">
-          <nav className="header__nav">
-            <div className="header__logo logo-mob">
-              <a className="logo-mob__link" href="" target="_blank">
+    <div className={S.wrapper}>
+      <div className={S.container}>
+        <header className={S.header}>
+          <nav className={S.header__nav}>
+            <div className={`${S.header__logo} ${S.logo_mob}`}>
+              <a className={S.logo_mob__link} href="" target="_blank">
                 <img
-                  className="logo-mob__img"
+                  className={S.logo_mob__img}
                   src="img/logo-mob.png"
                   alt="logo"
                 />
               </a>
             </div>
-            <button className="header__btn-putAd btn-hov01" id="btputAd">
+            <button
+              className={`${S.header__btn_putAd} ${S.btn_hov01}`}
+              id="btputAd"
+            >
               Разместить объявление
             </button>
-            <button className="header__btn-lk btn-hov01" id="btnlk">
+            <button className={`${S.header__btn_lk} ${S.btn_hov01}`} id="btnlk">
               Личный кабинет
             </button>
           </nav>
         </header>
 
-        <main className="main">
-          <div className="main__container">
-            <div className="main__menu menu">
-              <a className="menu__logo-link" href="" target="_blank">
-                <img className="menu__logo-img" src="img/logo.png" alt="logo" />
+        <main className={S.main}>
+          <div className={S.main__container}>
+            <div className={`${S.main__menu} ${S.menu}`}>
+              <a className={S.menu__logo_link} href="" target="_blank">
+                <img
+                  className={S.menu__logo_img}
+                  src="img/logo.png"
+                  alt="logo"
+                />
               </a>
-              <form className="menu__form" action="#">
-                <button className="menu__btn-serch btn-hov02" id="btnGoBack">
+              <form className={S.menu__form} action="#">
+                <button
+                  className={`${S.menu__btn_serch} ${S.btn_hov02}`}
+                  id="btnGoBack"
+                >
                   Вернуться на&nbsp;главную
                 </button>
               </form>
             </div>
           </div>
 
-          <div className="main__artic artic">
-            <div className="artic__content article">
-              <div className="article__left">
-                <div className="article__fill-img">
-                  <div className="article__img">
+          <div className={`${S.main__artic} ${S.artic}`}>
+            <div className={`${S.artic__content} ${S.article}`}>
+              <div className={S.article__left}>
+                <div className={S.article__fill_img}>
+                  <div className={S.article__img}>
                     <img src="" alt="" />
                   </div>
-                  <div className="article__img-bar">
-                    <div className="article__img-bar-div">
+                  <div className={S.article__img_bar}>
+                    <div className={S.article__img_bar_div}>
                       <img src="" alt="" />
                     </div>
-                    <div className="article__img-bar-div">
+                    <div className={S.article__img_bar_div}>
                       <img src="" alt="" />
                     </div>
-                    <div className="article__img-bar-div">
+                    <div className={S.article__img_bar_div}>
                       <img src="" alt="" />
                     </div>
-                    <div className="article__img-bar-div">
+                    <div className={S.article__img_bar_div}>
                       <img src="" alt="" />
                     </div>
-                    <div className="article__img-bar-div">
+                    <div className={S.article__img_bar_div}>
                       <img src="" alt="" />
                     </div>
-                    <div className="article__img-bar-div">
+                    <div className={S.article__img_bar_div}>
                       <img src="" alt="" />
                     </div>
                   </div>
-                  <div className="article__img-bar-mob img-bar-mob">
-                    <div className="img-bar-mob__circle circle-active"></div>
-                    <div className="img-bar-mob__circle"></div>
-                    <div className="img-bar-mob__circle"></div>
-                    <div className="img-bar-mob__circle"></div>
-                    <div className="img-bar-mob__circle"></div>
+                  <div className={`${S.article__img_bar_mob} ${S.img_bar_mob}`}>
+                    <div
+                      className={`${S.img_bar_mob__circle} ${S.circle_active}`}
+                    ></div>
+                    <div className={S.img_bar_mob__circle}></div>
+                    <div className={S.img_bar_mob__circle}></div>
+                    <div className={S.img_bar_mob__circle}></div>
+                    <div className={S.img_bar_mob__circle}></div>
                   </div>
                 </div>
               </div>
-              <div className="article__right">
-                <div className="article__block">
-                  <h3 className="article__title title">
+              <div className={S.article__right}>
+                <div className={S.article__block}>
+                  <h3 className={`${S.article__title} ${S.title}`}>
                     Ракетка для большого тенниса Triumph Pro STС Б/У
                   </h3>
-                  <div className="article__info">
-                    <p className="article__date">Сегодня в 10:45</p>
-                    <p className="article__city">Санкт-Петербург</p>
-                    <a className="article__link" href="" target="_blank" rel="">
+                  <div className={S.article__info}>
+                    <p className={S.article__date}>Сегодня в 10:45</p>
+                    <p className={S.article__city}>Санкт-Петербург</p>
+                    <a
+                      className={S.article__link}
+                      href=""
+                      target="_blank"
+                      rel=""
+                    >
                       4 отзыва
                     </a>
                   </div>
-                  <p className="article__price">2 200 ₽</p>
-                  <div className="article__btn-block">
-                    <button className="article__btn btn-redact btn-hov02">
+                  <p className={S.article__price}>2 200 ₽</p>
+                  <div className={S.article__btn_block}>
+                    <button
+                      className={`${S.article__btn} ${S.btn_redact} ${S.btn_hov02}`}
+                    >
                       Редактировать
                     </button>
-                    <button className="article__btn btn-remove btn-hov02">
+                    <button
+                      className={`${S.article__btn} ${S.btn_remove} ${S.btn_hov02}`}
+                    >
                       Снять с публикации
                     </button>
                   </div>
 
-                  <div className="article__author author">
-                    <div className="author__img">
+                  <div className={`${S.article__author} ${S.author}`}>
+                    <div className={S.author__img}>
                       <img src="" alt="" />
                     </div>
-                    <div className="author__cont">
-                      <p className="author__name">Антон</p>
-                      <p className="author__about">
+                    <div className={S.author__cont}>
+                      <p className={S.author__name}>Антон</p>
+                      <p className={S.author__about}>
                         Продает товары с&nbsp;мая 2022
                       </p>
                     </div>
@@ -111,10 +132,10 @@ export default function MyArticle() {
             </div>
           </div>
 
-          <div className="main__container">
-            <h3 className="main__title title">Описание товара</h3>
-            <div className="main__content">
-              <p className="main__text">
+          <div className={S.main__container}>
+            <h3 className={`${S.main__title} ${S.title}`}>Описание товара</h3>
+            <div className={S.main__content}>
+              <p className={S.main__text}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -127,19 +148,19 @@ export default function MyArticle() {
           </div>
         </main>
 
-        <footer className="footer">
-          <div className="footer__container">
-            <div className="footer__img">
+        <footer className={S.footer}>
+          <div className={S.footer__container}>
+            <div className={S.footer__img}>
               <a href="" target="_self">
                 <img src="img/icon_01.png" alt="home" />
               </a>
             </div>
-            <div className="footer__img">
+            <div className={S.footer__img}>
               <a href="" target="_self">
                 <img src="img/icon_02.png" alt="home" />
               </a>
             </div>
-            <div className="footer__img">
+            <div className={S.footer__img}>
               <a href="" target="_self">
                 <img src="img/icon_03.png" alt="home" />
               </a>
