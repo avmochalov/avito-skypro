@@ -1,25 +1,25 @@
-// import "./reviews.scss";
+import S from "./reviews.module.scss";
 
 export default function Reviews() {
   return (
-    <div className="wrapper">
-      <div className="container-bg">
-        <div className="modal__block">
-          <div className="modal__content">
-            <h3 className="modal__title">Отзывы о товаре</h3>
-            <div className="modal__btn-close">
-              <div className="modal__btn-close-line"></div>
+    <div className={S.wrapper}>
+      <div className={S.container_bg}>
+        <div className={S.modal__block}>
+          <div className={S.modal__content}>
+            <h3 className={S.modal__title}>Отзывы о товаре</h3>
+            <div className={S.modal__btn_close}>
+              <div className={S.modal__btn_close_line}></div>
             </div>
-            <div className="modal__scroll">
+            <div className={S.modal__scroll}>
               <form
-                className="modal__form-newArt form-newArt"
+                className={`${S.modal__form_newArt} ${S.form_newArt}`}
                 id="formNewArt"
                 action="#"
               >
-                <div className="form-newArt__block">
+                <div className={S.form_newArt__block}>
                   <label htmlFor="text">Добавить отзыв</label>
                   <textarea
-                    className="form-newArt__area"
+                    className={S.form_newArt__area}
                     name="text"
                     id="formArea"
                     cols="auto"
@@ -28,27 +28,27 @@ export default function Reviews() {
                   ></textarea>
                 </div>
                 <button
-                  className="form-newArt__btn-pub btn-hov02"
+                  className={`${S.form_newArt__btn_pub} ${S.btn_hov02}`}
                   id="btnPublish"
                 >
                   Опубликовать
                 </button>
               </form>
 
-              <div className="modal__reviews reviews">
-                <div className="reviews__review review">
-                  <div className="review__item">
-                    <div className="review__left">
-                      <div className="review__img">
+              <div className={`${S.modal__reviews} ${S.reviews}`}>
+                <div className={`${S.reviews__review} ${S.reviews}`}>
+                  <div className={S.review__item}>
+                    <div className={S.review__left}>
+                      <div className={S.review__img}>
                         <img src="" alt="" />
                       </div>
                     </div>
-                    <div className="review__right">
-                      <p className="review__name font-t">
+                    <div className={S.review__right}>
+                      <p className={`${S.review__name} ${S.font_t}`}>
                         Олег <span>14 августа</span>
                       </p>
-                      <h5 className="review__title font-t">Комментарий</h5>
-                      <p className="review__text font-t">
+                      <h5 className={`${S.review__title} ${S.font_t}`}>Комментарий</h5>
+                      <p className={`${S.review__text} ${S.font_t}`}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua.
@@ -57,19 +57,19 @@ export default function Reviews() {
                   </div>
                 </div>
 
-                <div className="reviews__review review">
-                  <div className="review__item">
-                    <div className="review__left">
-                      <div className="review__img">
+                <div className={`${S.reviews__review} ${S.reviews}`}>
+                  <div className={S.review__item}>
+                    <div className={S.review__left}>
+                      <div className={S.review__img}>
                         <img src="" alt="" />
                       </div>
                     </div>
-                    <div className="review__right">
-                      <p className="review__name font-t">
+                    <div className={S.review__right}>
+                      <p className={`${S.review__name} ${S.font_t}`}>
                         Олег <span>14 августа</span>
                       </p>
-                      <h5 className="review__title font-t">Комментарий</h5>
-                      <p className="review__text font-t">
+                      <h5 className={`${S.review__title} ${S.font_t}`}>Комментарий</h5>
+                      <p className={`${S.review__text} ${S.font_t}`}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua.
@@ -78,19 +78,19 @@ export default function Reviews() {
                   </div>
                 </div>
 
-                <div className="reviews__review review">
-                  <div className="review__item">
-                    <div className="review__left">
-                      <div className="review__img">
+                <div className={`${S.reviews__review} ${S.reviews}`}>
+                  <div className={S.review__item}>
+                    <div className={S.review__left}>
+                      <div className={S.review__img}>
                         <img src="" alt="" />
                       </div>
                     </div>
-                    <div className="review__right">
-                      <p className="review__name font-t">
+                    <div className={S.review__right}>
+                      <p className={`${S.review__name} ${S.font_t}`}>
                         Олег <span>14 августа</span>
                       </p>
-                      <h5 className="review__title font-t">Комментарий</h5>
-                      <p className="review__text font-t">
+                      <h5 className={`${S.review__title} ${S.font_t}`}>Комментарий</h5>
+                      <p className={`${S.review__text} ${S.font_t}`}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua.
@@ -99,19 +99,19 @@ export default function Reviews() {
                   </div>
                 </div>
 
-                <div className="reviews__review review">
-                  <div className="review__item">
-                    <div className="review__left">
-                      <div className="review__img">
+                <div className={`${S.reviews__review} ${S.reviews}`}>
+                  <div className={S.review__item}>
+                    <div className={S.review__left}>
+                      <div className={S.review__img}>
                         <img src="" alt="" />
                       </div>
                     </div>
-                    <div className="review__right">
-                      <p className="review__name font-t">
+                    <div className={S.review__right}>
+                      <p className={`${S.review__name} ${S.font_t}`}>
                         Олег <span>14 августа</span>
                       </p>
-                      <h5 className="review__title font-t">Комментарий</h5>
-                      <p className="review__text font-t">
+                      <h5 className={`${S.review__title} ${S.font_t}`}>Комментарий</h5>
+                      <p className={`${S.review__text} ${S.font_t}`}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua.
@@ -120,19 +120,19 @@ export default function Reviews() {
                   </div>
                 </div>
 
-                <div className="reviews__review review">
-                  <div className="review__item">
-                    <div className="review__left">
-                      <div className="review__img">
+                <div className={`${S.reviews__review} ${S.reviews}`}>
+                  <div className={S.review__item}>
+                    <div className={S.review__left}>
+                      <div className={S.review__img}>
                         <img src="" alt="" />
                       </div>
                     </div>
-                    <div className="review__right">
-                      <p className="review__name font-t">
+                    <div className={S.review__right}>
+                      <p className={`${S.review__name} ${S.font_t}`}>
                         Олег <span>14 августа</span>
                       </p>
-                      <h5 className="review__title font-t">Комментарий</h5>
-                      <p className="review__text font-t">
+                      <h5 className={`${S.review__title} ${S.font_t}`}>Комментарий</h5>
+                      <p className={`${S.review__text} ${S.font_t}`}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua.
