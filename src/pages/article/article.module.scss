@@ -64,16 +64,16 @@ div {
 
 // ========== hover ========
 
-.btn-hov01:hover {
+.btn_hov01:hover {
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid #FFFFFF;
 }
 
-.btn-hov02:hover {
+.btn_hov02:hover {
     background-color: #0080C1;
 }
 
-.article__fill-img {    
+.article__fill_img {    
     &:hover::before {        
         border-top: 2px solid #0080C1;
         border-left: 2px solid #0080C1;        
@@ -83,10 +83,10 @@ div {
 
 // ========== activ ========
 
-.circle-active {
+.circle_active {
     background-color: #FFFFFF;
 }
-.img-bar-mob__circle:active {
+.img_bar_mob__circle:active {
     background-color: #FFFFFF;
 }
 
@@ -106,19 +106,19 @@ div {
         justify-content: end;
     }
 
-    &__btn-lk {
+    &__btn_lk {
         width: 173px;
         height: 40px;
         margin-left: 10px;
     }
 
-    &__btn-putAd {
+    &__btn_putAd {
         width: 232px;
         height: 40px;
     }
 
-    &__btn-lk,
-    &__btn-putAd {
+    &__btn_lk,
+    &__btn_putAd {
         border: 1px solid #FFFFFF;
         border-radius: 6px;
         background-color: transparent;
@@ -183,12 +183,12 @@ div {
 }
 .menu {
 
-    &__logo-link {
+    &__logo_link {
         width: 54;
         height: 50px;
     }
 
-    &__logo-img {
+    &__logo_img {
         width: 54px;
         height: auto;
     }
@@ -202,7 +202,7 @@ div {
 
     
 
-    &__btn-serch {        
+    &__btn_serch {        
         width: 241px;
         height: 50px;
         background-color: #009EE4;
@@ -242,7 +242,7 @@ div {
         margin-right: 54px;
     }
 
-    &__fill-img {
+    &__fill_img {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -262,10 +262,10 @@ div {
             object-fit: cover;
         }
     }
-    &__img-bar-mob{
+    &__img_bar_mob{
         display: none;
     }
-    &__img-bar {
+    &__img_bar {
         margin-top: 30px;
         width: 490px;
         display: flex;
@@ -276,7 +276,7 @@ div {
         margin-left: -5px;
     }
 
-    &__img-bar-div {
+    &__img_bar_div {
         width: 88px;
         min-width: 88px;
         height: 88px;
@@ -446,8 +446,8 @@ div {
             padding: 0;
         }
 
-        &__btn-lk,
-        &__btn-putAd {
+        &__btn_lk,
+        &__btn_putAd {
             display: none;
         }
 
@@ -536,7 +536,7 @@ div {
             margin-bottom: 20px;
         }
 
-        &__fill-img {
+        &__fill_img {
             max-width: 100%;
             width: 100%;
             overflow: hidden;
@@ -570,10 +570,10 @@ div {
             margin: 0 0px;
         }
 
-        &__img-bar {
+        &__img_bar {
             display: none;
         }
-        &__img-bar-mob {
+        &__img_bar_mob {
             display: block;
             width: 68px;
             height: 8px;
