@@ -1,5 +1,8 @@
+import { useState } from "react";
+import Signin from "../../components/modal/signin/signin";
 import S from "./main.module.scss";
 export default function Main() {
+  const [isLoginWindowOpen, setIsLoginWindowOpen] = useState(false);
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
@@ -8,11 +11,13 @@ export default function Main() {
             <button
               className={`${S.header__btn_main_enter} ${S.btn_hov01}`}
               id="btnMainEnter"
+              onClick={()=> setIsLoginWindowOpen(!isLoginWindowOpen)}
             >
               Вход в личный кабинет
             </button>
           </nav>
         </header>
+        {isLoginWindowOpen && <Signin/>}
         <main className={S.main}>
           <div className={`${S.main__search} ${S.search}`}>
             <a className={S.search__logo_link} href="#" target="_blank">
