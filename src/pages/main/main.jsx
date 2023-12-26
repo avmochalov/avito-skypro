@@ -1,27 +1,29 @@
-import { useState } from "react";
-import Signin from "../../components/modal/signin/signin";
 import S from "./main.module.scss";
+import { NavLink } from "react-router-dom";
 export default function Main() {
-  const [isLoginWindowOpen, setIsLoginWindowOpen] = useState(false);
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
         <header className={S.header}>
           <nav className={S.header__nav}>
-            <button
-              className={`${S.header__btn_main_enter} ${S.btn_hov01}`}
-              id="btnMainEnter"
-              onClick={()=> setIsLoginWindowOpen(!isLoginWindowOpen)}
-            >
-              Вход в личный кабинет
-            </button>
+            <NavLink to='/signin'>
+              <button
+                className={`${S.header__btn_main_enter} ${S.btn_hov01}`}
+                id="btnMainEnter"
+              >
+                Вход в личный кабинет
+              </button>
+            </NavLink>
           </nav>
         </header>
-        {isLoginWindowOpen && <Signin/>}
         <main className={S.main}>
           <div className={`${S.main__search} ${S.search}`}>
             <a className={S.search__logo_link} href="#" target="_blank">
-              <img className={S.search__logo_img} src="img/logo.png" alt="logo" />
+              <img
+                className={S.search__logo_img}
+                src="img/logo.png"
+                alt="logo"
+              />
             </a>
             <a className={S.search__logo_mob_link} href="#" target="_blank">
               <img
@@ -43,7 +45,9 @@ export default function Main() {
                 placeholder="Поиск"
                 name="search-mob"
               />
-              <button className={`${S.search__btn} ${S.btn_hov02}`}>Найти</button>
+              <button className={`${S.search__btn} ${S.btn_hov02}`}>
+                Найти
+              </button>
             </form>
           </div>
           <div className={S.main__container}>

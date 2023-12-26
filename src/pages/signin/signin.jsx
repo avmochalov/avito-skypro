@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import S from "./signin.module.scss";
+import { signinUser } from "../../api";
+import { NavLink } from "react-router-dom";
 
 export default function Signin() {
   const {
@@ -7,7 +9,10 @@ export default function Signin() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    signinUser(data).then((res)=> console.log(res));
+  };
   return (
     <div className={S.wrapper}>
       <div className={S.container_enter}>
@@ -38,9 +43,11 @@ export default function Signin() {
               placeholder="email"
               name="email"
             />
-            {errors && errors.email && <span>{errors.email.message}</span>}
+            {errors && errors.email && (
+              <span className="text-[red]">{errors.email.message}</span>
+            )}
             <input
-              className={`${S.modal__input} ${S.password}`}
+              className={`${S.modal__input} ${S.password}` + " mt-[30px]"}
               type="password"
               name="password"
               id="formpassword"
@@ -56,13 +63,17 @@ export default function Signin() {
                 },
               })}
             />
-            {errors && errors.password && <span>{errors.password.message}</span>}
+            {errors && errors.password && (
+              <span className="text-[red]">{errors.password.message}</span>
+            )}
             <button className={S.modal__btn_enter} id="btnEnter">
-              {/* <a href="../index.html">Войти</a>{" "} */}
+              <a>Войти</a>{" "}
             </button>
+            <NavLink to='/signup'>
             <button className={S.modal__btn_signup} id="btnSignUp">
-              <a href="signup.html">Зарегистрироваться</a>{" "}
+              <a >Зарегистрироваться</a>{" "}
             </button>
+            </NavLink>
           </form>
         </div>
       </div>
