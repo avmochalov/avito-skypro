@@ -1,10 +1,9 @@
 // import { v4 as uuidv4 } from "uuid";
 import { useForm } from "react-hook-form";
 import S from "./signup.module.scss";
-import { signupUser } from "../../api";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { signupUser } from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Signup() {
   const [error, setError] = useState(null);
@@ -23,7 +22,7 @@ export default function Signup() {
       city: data.city,
     };
     if (data.password === data.confirm_password) {
-      signupUser(regData).then(() => navigate('/signin'));
+      signupUser(regData).then(() => navigate("/signin"));
     } else {
       setError("Пароли не совпадают");
     }

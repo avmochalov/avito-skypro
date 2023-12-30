@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import S from "./signin.module.scss";
-import { signinUser } from "../../api";
+import { signinUser } from "../../api/userApi";
 import { NavLink } from "react-router-dom";
 
 export default function Signin() {
@@ -11,7 +11,7 @@ export default function Signin() {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    signinUser(data).then((res)=> console.log(res));
+    signinUser(data).then((res) => console.log(res));
   };
   return (
     <div className={S.wrapper}>
@@ -69,10 +69,10 @@ export default function Signin() {
             <button className={S.modal__btn_enter} id="btnEnter">
               <a>Войти</a>{" "}
             </button>
-            <NavLink to='/signup'>
-            <button className={S.modal__btn_signup} id="btnSignUp">
-              <a >Зарегистрироваться</a>{" "}
-            </button>
+            <NavLink to="/signup">
+              <button className={S.modal__btn_signup} id="btnSignUp">
+                <a>Зарегистрироваться</a>{" "}
+              </button>
             </NavLink>
           </form>
         </div>
