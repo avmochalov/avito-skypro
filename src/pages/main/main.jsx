@@ -1,7 +1,14 @@
+import { useEffect, useState } from "react";
 import CardItem from "../../components/cardItem/cardItem";
 import S from "./main.module.scss";
 import { NavLink } from "react-router-dom";
+import { getAllAds } from "../../api/adsApi";
 export default function Main() {
+  const [adsList, setAdsList] = useState([]);
+  useEffect(() => {
+    getAllAds().then((res) => setAdsList(res.data));
+  }, []);
+  console.log(adsList);
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
@@ -56,7 +63,7 @@ export default function Main() {
 
             <div className={S.main__content}>
               <div className={`${S.content__cards} ${S.cards}`}>
-                <CardItem />
+                <CardItem adsList={adsList} />
               </div>
             </div>
           </div>
