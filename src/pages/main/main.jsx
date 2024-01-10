@@ -3,29 +3,25 @@ import { useForm } from "react-hook-form";
 import CardItem from "../../components/cardItem/cardItem";
 import S from "./main.module.scss";
 import { NavLink } from "react-router-dom";
-import { getAllAds } from "../../api/adsApi";
+import { useGetAdsQuery } from "../../services/rtcAdsApi";
 export default function Main() {
-  const [adsList, setAdsList] = useState([]);
+  const { data = [], isLoading } = useGetAdsQuery();
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   useEffect(() => {
-    getAllAds().then((res) => setAdsList(res.data));
-    setSearchResult(adsList);
-  }, []);
-  useEffect(() => {
     setSearchResult(
-      adsList.filter((el) => {
+      data.filter((el) => {
         return el.title.toLowerCase().includes(searchValue.toLowerCase());
       })
     );
-  }, [searchValue]);
+  }, [searchValue, isLoading]);
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    setSearchValue(data.value);
+  const onSubmit = (resultData) => {
+    setSearchValue(resultData.value);
   };
   console.log(searchResult);
   console.log(searchValue);
-  console.log(adsList);
+  // console.log(adsList);
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
