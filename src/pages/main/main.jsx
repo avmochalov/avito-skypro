@@ -1,13 +1,30 @@
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import CardItem from "../../components/cardItem/cardItem";
 import S from "./main.module.scss";
 import { NavLink } from "react-router-dom";
 import { getAllAds } from "../../api/adsApi";
 export default function Main() {
   const [adsList, setAdsList] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
   useEffect(() => {
     getAllAds().then((res) => setAdsList(res.data));
+    setSearchResult(adsList);
   }, []);
+  useEffect(() => {
+    setSearchResult(
+      adsList.filter((el) => {
+        return el.title.toLowerCase().includes(searchValue.toLowerCase());
+      })
+    );
+  }, [searchValue]);
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    setSearchValue(data.value);
+  };
+  console.log(searchResult);
+  console.log(searchValue);
   console.log(adsList);
   return (
     <div className={S.wrapper}>
@@ -40,18 +57,26 @@ export default function Main() {
                 alt="logo"
               />
             </a>
-            <form className={S.search__form} action="#">
+            <form
+              className={S.search__form}
+              action="#"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <input
                 className={S.search__text}
                 type="search"
                 placeholder="Поиск по объявлениям"
                 name="search"
+                {...register("value")}
               />
               <input
                 className={S.search__text_mob}
                 type="search"
                 placeholder="Поиск"
                 name="search-mob"
+                onChange={(event) => {
+                  setSearchValue(event.target.value);
+                }}
               />
               <button className={`${S.search__btn} ${S.btn_hov02}`}>
                 Найти
@@ -63,7 +88,7 @@ export default function Main() {
 
             <div className={S.main__content}>
               <div className={`${S.content__cards} ${S.cards}`}>
-                <CardItem adsList={adsList} />
+                <CardItem adsList={searchResult} />
               </div>
             </div>
           </div>
