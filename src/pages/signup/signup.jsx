@@ -22,7 +22,9 @@ export default function Signup() {
       city: data.city,
     };
     if (data.password === data.confirm_password) {
-      signupUser(regData).then(() => navigate("/signin"));
+      signupUser(regData)
+        .then(() => navigate("/signin"))
+        .catch((error) => alert(error.message));
     } else {
       setError("Пароли не совпадают");
     }

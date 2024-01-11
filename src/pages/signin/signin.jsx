@@ -10,8 +10,12 @@ export default function Signin() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
-    signinUser(data).then((res) => console.log(res));
+    signinUser(data)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("auth_data", JSON.stringify(res.data));
+      })
+      .catch((error) => alert(error.response.data.detail));
   };
   return (
     <div className={S.wrapper}>

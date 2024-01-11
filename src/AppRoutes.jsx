@@ -12,7 +12,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/seller-profile" element={<SellerProfile />} />
-      <Route path="/article" element={<Article />} />
+      <Route path="/article/:id" element={<Article />} />
       <Route path="/" element={<Main />} />
       <Route path="/signin" element={<Signin />} />
       <Route path="/signup" element={<Signup />} />

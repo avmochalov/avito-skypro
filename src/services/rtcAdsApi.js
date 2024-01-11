@@ -10,7 +10,18 @@ export const adsApi = createApi({
         url: "ads",
       }),
     }),
+    getAdsById: builder.query({
+      query: (id) => ({
+        url: 'ads/' + id,
+      }),
+    }),
+    getAllAdsComments: builder.query({
+      query: (id) => ({
+        url: 'ads/' + id + '/comments',
+      }),
+    }),
   }),
+  
 });
 
-export const { useGetAdsQuery } = adsApi;
+export const { useGetAdsQuery, useGetAdsByIdQuery, useGetAllAdsCommentsQuery } = adsApi;
