@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-key */
 import { NavLink } from "react-router-dom";
 import S from "./carditem.module.scss";
+import { convertDate } from "../../services/helpers";
 // eslint-disable-next-line react/prop-types
 export default function CardItem({ adsList }) {
   return (
@@ -28,7 +29,7 @@ export default function CardItem({ adsList }) {
                 </a>
                 <p className={S.card__price}>{ads.price} ₽</p>
                 <p className={S.card__place}>{ads.user.city}</p>
-                <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
+                <p className={S.card__date}>{convertDate(ads.created_on)}</p>
               </div>
             </div>
           </NavLink>

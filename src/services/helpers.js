@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
+import { refreshToken } from "../api/userApi";
 
 export const convertDate = (inputData) => {
   let convertDate =
@@ -33,4 +34,14 @@ export const declensionCommentWord = (num) => {
   if ((num + 20) % 10 === 2 || (num + 20) % 10 === 3 || (num + 20) % 10 === 4)
     return num + " отзыва";
   return num + " отзывов";
+};
+
+export const refreshUserData = () => {
+  refreshToken().then((res) =>
+    localStorage.setItem("auth_data", JSON.stringify(res.data))
+  );
+};
+
+export const findCurrentUser = (users, userId) => {
+  return (users.find((user) => user.id == userId));
 };

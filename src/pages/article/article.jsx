@@ -23,7 +23,7 @@ export default function Article() {
     useGetAllAdsCommentsQuery(params.id);
   console.log(params.id);
   {
-    !isCommentsLoading && console.log(comments.length);
+    !isLoading && console.log(data);
   }
   return (
     <div className={S.wrapper}>
@@ -134,7 +134,9 @@ export default function Article() {
                         <img src="" alt="" />
                       </div>
                       <div className={S.author__cont}>
+                      <NavLink to={"/seller-profile/" + data.user.id}>
                         <p className={S.author__name}>{data.user.name}</p>
+                      </NavLink>
                         <p className={S.author__about}>
                           {"Продает товары с " +
                             salesStartDate(data.user.sells_from)}

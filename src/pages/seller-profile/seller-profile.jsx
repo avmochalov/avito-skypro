@@ -1,6 +1,37 @@
 import S from "./sellerProfile.module.scss";
-
+import logo from "../../../public/img/logo.png";
+import {
+  useGetAllAdsByUserQuery,
+  useGetAllUsersQuery,
+} from "../../services/rtcAdsApi";
+import {
+  closePhone,
+  findCurrentUser,
+  salesStartDate,
+} from "../../services/helpers";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import CardItem from "../../components/cardItem/cardItem";
+// import { getUserData } from "../../api/userApi";
+// import { refreshUserData } from "../../services/helpers";
 export default function SellerProfile() {
+  const params = useParams();
+  const [userData, setUserData] = useState({});
+  const [isPhoneNumberOpen, setIsPhoneNumberOpen] = useState(false);
+
+  const { data: users, isLoading: isUsersLoading } = useGetAllUsersQuery();
+  const { data: userAds, isLoading: isUserAdsLoading } =
+    useGetAllAdsByUserQuery(params.id);
+  {
+    !isUserAdsLoading && console.log(userAds);
+  }
+  useEffect(() => {
+    {
+      !isUsersLoading && setUserData(findCurrentUser(users, params.id));
+    }
+  }, [isUsersLoading]);
+  console.log(userData);
+
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
@@ -8,11 +39,7 @@ export default function SellerProfile() {
           <nav className={S.header__nav}>
             <div className={`${S.header__logo} ${S.logo_mob}`}>
               <a className={S.logo_mob__link} href="" target="_blank">
-                <img
-                  className={S.logo_mob__img}
-                  src="img/logo-mob.png"
-                  alt="logo"
-                />
+                <img className={S.logo_mob__img} src={logo} alt="logo" />
               </a>
             </div>
             <button
@@ -32,11 +59,7 @@ export default function SellerProfile() {
             <div className={S.main__center_block}>
               <div className={`${S.main__menu} ${S.menu}`}>
                 <a className={S.menu__logo_link} href="" target="_blank">
-                  <img
-                    className={S.menu__logo_img}
-                    src="img/logo.png"
-                    alt="logo"
-                  />
+                  <img className={S.menu__logo_img} src={logo} alt="logo" />
                 </a>
                 <form className={S.menu__form} action="#">
                   <button
@@ -50,163 +73,62 @@ export default function SellerProfile() {
 
               <h2 className={S.main__h2}>Профиль продавца</h2>
 
-              <div className={`${S.main__profile_sell} ${S.profile_sell}`}>
-                <div className={S.profile_sell__content}>
-                  <div className={`${S.profile_sell__seller} ${S.seller}`}>
-                    <div className={S.seller__left}>
-                      <div className={S.seller__img}>
-                        <a href="" target="_self">
-                          <img src="#" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <div className={S.seller__right}>
-                      <h3 className={S.seller__title}>Кирилл Матвеев</h3>
-                      <p className={S.seller__city}>Санкт-Петербург</p>
-                      <p className={S.seller__inf}>
-                        Продает товары с августа 2021
-                      </p>
-
-                      <div className={S.seller__img_mob_block}>
-                        <div className={S.seller__img_mob}>
+              {!isUsersLoading && (
+                <div className={`${S.main__profile_sell} ${S.profile_sell}`}>
+                  <div className={S.profile_sell__content}>
+                    <div className={`${S.profile_sell__seller} ${S.seller}`}>
+                      <div className={S.seller__left}>
+                        <div className={S.seller__img}>
                           <a href="" target="_self">
-                            <img src="#" alt="" />
+                            <img
+                              src={"http://localhost:8090/" + userData.avatar}
+                              alt=""
+                            />
                           </a>
                         </div>
                       </div>
+                      <div className={S.seller__right}>
+                        <h3 className={S.seller__title}>
+                          {userData.name + " " + userData.surname}
+                        </h3>
+                        <p className={S.seller__city}>{userData.city}</p>
+                        <p className={S.seller__inf}>
+                          {"Продает товары с " +
+                            salesStartDate(userData.sells_from)}
+                        </p>
 
-                      <button className={`${S.seller__btn} ${S.btn_hov02}`}>
-                        Показать&nbsp;телефон
-                        <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>
-                      </button>
+                        <div className={S.seller__img_mob_block}>
+                          <div className={S.seller__img_mob}>
+                            <a href="" target="_self">
+                              <img src="#" alt="" />
+                            </a>
+                          </div>
+                        </div>
+
+                        <button
+                          className={`${S.seller__btn} ${S.btn_hov02}`}
+                          onClick={() =>
+                            setIsPhoneNumberOpen(!isPhoneNumberOpen)
+                          }
+                        >
+                          Показать&nbsp;телефон
+                          {isPhoneNumberOpen ? (
+                            <span>{userData.phone}</span>
+                          ) : (
+                            <span>{closePhone(userData.phone)}</span>
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <h3 className={`${S.main__title} ${S.title}`}>Товары продавца</h3>
             </div>
             <div className={S.main__content}>
               <div className={`${S.content__cards} ${S.cards}`}>
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
+                {!isUserAdsLoading && <CardItem adsList={userAds} />}
               </div>
             </div>
           </div>

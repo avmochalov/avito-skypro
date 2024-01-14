@@ -11,7 +11,7 @@ import Signup from "./pages/signup/signup";
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/seller-profile" element={<SellerProfile />} />
+      <Route path="/seller-profile/:id" element={<SellerProfile />} />
       <Route path="/article/:id" element={<Article />} />
       <Route path="/" element={<Main />} />
       <Route path="/signin" element={<Signin />} />
