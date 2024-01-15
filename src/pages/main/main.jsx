@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CardItem from "../../components/cardItem/cardItem";
 import S from "./main.module.scss";
-import { NavLink } from "react-router-dom";
 import { useGetAdsQuery } from "../../services/rtcAdsApi";
+import Header from "../../components/header/Header";
 export default function Main() {
   const { data = [], isLoading } = useGetAdsQuery();
   const [searchValue, setSearchValue] = useState("");
@@ -25,18 +25,7 @@ export default function Main() {
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
-        <header className={S.header}>
-          <nav className={S.header__nav}>
-            <NavLink to="/signin">
-              <button
-                className={`${S.header__btn_main_enter} ${S.btn_hov01}`}
-                id="btnMainEnter"
-              >
-                Вход в личный кабинет
-              </button>
-            </NavLink>
-          </nav>
-        </header>
+<Header/>
         <main className={S.main}>
           <div className={`${S.main__search} ${S.search}`}>
             <a className={S.search__logo_link} href="#" target="_blank">

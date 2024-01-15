@@ -1,31 +1,30 @@
+// import { useEffect, useState } from "react";
+// import { getUserData } from "../../api/userApi";
+// import { refreshUserData } from "../../services/helpers";
+import { useForm } from "react-hook-form";
+import {
+  useGetUserQuery,
+  useUpdateUserMutation,
+} from "../../services/rtcUserApi";
 import S from "./profile.module.scss";
+import { NavLink } from "react-router-dom";
+import Header from "../../components/header/Header";
 
 export default function Profile() {
+  const [updateUser] = useUpdateUserMutation();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (formData) => {
+    console.log(formData)
+    updateUser(formData);
+  };
+  const { data: user, isLoading: isUserLoading } = useGetUserQuery();
+  {
+    !isUserLoading && console.log(user);
+  }
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
-        <header className={S.header}>
-          <nav className={S.header__nav}>
-            <div className={`${S.header__logo} ${S.logo_mob}`}>
-              <a className={S.logo_mob__link} href="" target="_blank">
-                <img
-                  className={S.logo_mob__img}
-                  src="img/logo-mob.png"
-                  alt="logo"
-                />
-              </a>
-            </div>
-            <button
-              className={`${S.header__btn_putAd} ${S.btn_hov01}`}
-              id="btputAd"
-            >
-              Разместить объявление
-            </button>
-            <button className={`${S.header__btn_lk} ${S.btn_hov01}`} id="btnlk">
-              Личный кабинет
-            </button>
-          </nav>
-        </header>
+        <Header/>
         <main className={S.main}>
           <div className={S.main__container}>
             <div className={S.main__center_block}>
@@ -38,98 +37,113 @@ export default function Profile() {
                   />
                 </a>
                 <form className={S.menu__form} action="#">
+                <NavLink to={"/"}>
                   <button
                     className={`${S.menu__btn} ${S.btn_hov02}`}
                     id="btnGoBack"
                   >
                     Вернуться на&nbsp;главную
                   </button>
+                  </NavLink>
                 </form>
               </div>
 
-              <h2 className={S.main__h2}>Здравствуйте, Антон!</h2>
+              {!isUserLoading && (
+                <>
+                  {" "}
+                  <h2 className={S.main__h2}>Здравствуйте, {user.name}!</h2>
+                  <div className={`${S.main__profile} ${S.profile}`}>
+                    <div className={S.profile__content}>
+                      <h3 className={`${S.profile__title} ${S.title}`}>
+                        Настройки профиля
+                      </h3>
+                      <div className={`${S.profile__settings} ${S.settings}`}>
+                        <div className={S.settings__left}>
+                          <div className={S.settings__img}>
+                            <a href="" target="_self">
+                              <img src="#" alt="" />
+                            </a>
+                          </div>
+                          <a
+                            className={S.settings__change_photo}
+                            href=""
+                            target="_self"
+                          >
+                            Заменить
+                          </a>
+                        </div>
+                        <div className={S.settings__right}>
+                          <form
+                            className={S.settings__form}
+                            action="#"
+                            onSubmit={handleSubmit(onSubmit)}
+                          >
+                            <div className={S.settings__div}>
+                              <label htmlFor="fname">Имя</label>
+                              <input
+                                className={S.settings__f_name}
+                                id="settings-fname"
+                                name="fname"
+                                type="text"
+                                defaultValue={user.name}
+                                placeholder=""
+                                {...register("name")}
+                              />
+                            </div>
 
-              <div className={`${S.main__profile} ${S.profile}`}>
-                <div className={S.profile__content}>
-                  <h3 className={`${S.profile__title} ${S.title}`}>
-                    Настройки профиля
-                  </h3>
-                  <div className={`${S.profile__settings} ${S.settings}`}>
-                    <div className={S.settings__left}>
-                      <div className={S.settings__img}>
-                        <a href="" target="_self">
-                          <img src="#" alt="" />
-                        </a>
+                            <div className={S.settings__div}>
+                              <label htmlFor="lname">Фамилия</label>
+                              <input
+                                className={S.settings__l_name}
+                                id="settings-lname"
+                                name="lname"
+                                type="text"
+                                defaultValue={user.surname}
+                                placeholder=""
+                                {...register("surname")}
+                              />
+                            </div>
+
+                            <div className={S.settings__div}>
+                              <label htmlFor="city">Город</label>
+                              <input
+                                className={S.settings__city}
+                                id="settings-city"
+                                name="city"
+                                type="text"
+                                defaultValue={user.city}
+                                placeholder=""
+                                {...register("city")}
+                              />
+                            </div>
+
+                            <div className={S.settings__div}>
+                              <label htmlFor="phone">Телефон</label>
+                              <input
+                                className={S.settings__phone}
+                                id="settings-phone"
+                                name="phone"
+                                type="tel"
+                                defaultValue={user.phone}
+                                placeholder="+77777777777"
+                                {...register("phone")}
+                              />
+                            </div>
+
+                            <button
+                              className={`${S.settings__btn} ${S.btn_hov02}`}
+                              // id="settings-btn"
+                              // type="submit"
+                            >
+                              Сохранить
+                            </button>
+                          </form>
+                        </div>
                       </div>
-                      <a
-                        className={S.settings__change_photo}
-                        href=""
-                        target="_self"
-                      >
-                        Заменить
-                      </a>
                     </div>
-                    <div className={S.settings__right}>
-                      <form className={S.settings__form} action="#">
-                        <div className={S.settings__div}>
-                          <label htmlFor="fname">Имя</label>
-                          <input
-                            className={S.settings__f_name}
-                            id="settings-fname"
-                            name="fname"
-                            type="text"
-                            value="Ан"
-                            placeholder=""
-                          />
-                        </div>
-
-                        <div className={S.settings__div}>
-                          <label htmlFor="lname">Фамилия</label>
-                          <input
-                            className={S.settings__l_name}
-                            id="settings-lname"
-                            name="lname"
-                            type="text"
-                            value="Городецкий"
-                            placeholder=""
-                          />
-                        </div>
-
-                        <div className={S.settings__div}>
-                          <label htmlFor="city">Город</label>
-                          <input
-                            className={S.settings__city}
-                            id="settings-city"
-                            name="city"
-                            type="text"
-                            value="Санкт-Петербург"
-                            placeholder=""
-                          />
-                        </div>
-
-                        <div className={S.settings__div}>
-                          <label htmlFor="phone">Телефон</label>
-                          <input
-                            className={S.settings__phone}
-                            id="settings-phone"
-                            name="phone"
-                            type="tel"
-                            value="89161234567"
-                            placeholder="+79161234567"
-                          />
-                        </div>
-
-                        <button
-                          className={`${S.settings__btn} ${S.btn_hov02}`}
-                          id="settings-btn"
-                        >
-                          Сохранить
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  </div>{" "}
+                </>
+              )}
 
               <h3 className={`${S.main__title} ${S.title}`}>Мои товары</h3>
             </div>

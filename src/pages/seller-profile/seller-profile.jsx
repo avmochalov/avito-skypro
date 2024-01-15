@@ -9,7 +9,7 @@ import {
   findCurrentUser,
   salesStartDate,
 } from "../../services/helpers";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CardItem from "../../components/cardItem/cardItem";
 // import { getUserData } from "../../api/userApi";
@@ -62,12 +62,14 @@ export default function SellerProfile() {
                   <img className={S.menu__logo_img} src={logo} alt="logo" />
                 </a>
                 <form className={S.menu__form} action="#">
-                  <button
-                    className={`${S.menu__btn} ${S.btn_hov02}`}
-                    id="btnGoBack"
-                  >
-                    Вернуться на&nbsp;главную
-                  </button>
+                  <NavLink to={"/"}>
+                    <button
+                      className={`${S.menu__btn} ${S.btn_hov02}`}
+                      id="btnGoBack"
+                    >
+                      Вернуться на&nbsp;главную
+                    </button>
+                  </NavLink>
                 </form>
               </div>
 
