@@ -1,11 +1,13 @@
 import { NavLink } from "react-router-dom";
 import S from "./header.module.scss";
 import { useState } from "react";
+import { adminStore } from "../../services/zustand";
 
 export default function Header() {
   const [isUserAuth, setIsUserAuth] = useState(
     Boolean(localStorage.getItem("auth_data"))
   );
+  const { setIsModalWindowOpen } = adminStore();
   return (
     <>
       {isUserAuth ? (
@@ -20,18 +22,24 @@ export default function Header() {
                 />
               </a>
             </div>
-            <NavLink to="/addnewat">
-            <button
-              className={`${S.header__btn_putAd} ${S.btn_hov01}`}
-              id="btputAd"
-            >
-              Разместить объявление
-            </button>
-            </NavLink>
+            {/* <NavLink to="/addnewat"> */}
+              <button
+                className={`${S.header__btn_putAd} ${S.btn_hov01}`}
+                id="btputAd"
+                onClick={() => {
+                  setIsModalWindowOpen(true);
+                }}
+              >
+                Разместить объявление
+              </button>
+            {/* </NavLink> */}
             <NavLink to="/profile">
-            <button className={`${S.header__btn_lk} ${S.btn_hov01}`} id="btnlk">
-              Личный кабинет
-            </button>
+              <button
+                className={`${S.header__btn_lk} ${S.btn_hov01}`}
+                id="btnlk"
+              >
+                Личный кабинет
+              </button>
             </NavLink>
             <button
               className={`${S.header__btn_lk} ${S.btn_hov01}`}

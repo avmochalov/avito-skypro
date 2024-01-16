@@ -5,7 +5,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Signin() {
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,

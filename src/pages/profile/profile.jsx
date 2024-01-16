@@ -1,6 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { getUserData } from "../../api/userApi";
-// import { refreshUserData } from "../../services/helpers";
 import { useForm } from "react-hook-form";
 import {
   useGetUserQuery,
@@ -12,17 +9,20 @@ import { NavLink } from "react-router-dom";
 import Header from "../../components/header/Header";
 import { useGetUsersAdsQuery } from "../../services/rtcAdsApiWithAuth";
 import CardItem from "../../components/cardItem/cardItem";
+import { adminStore } from "../../services/zustand";
+import AddNewAt from "../../components/modal/addnewat/addnewat";
 
 export default function Profile() {
   const [updateUser] = useUpdateUserMutation();
   const [uploadAvatar] = useUploadAvatarMutation();
   const { data: usersAds, isLoading: isAdsLoading } = useGetUsersAdsQuery();
   const { register, handleSubmit } = useForm();
+  const { isModalWindowOpen } = adminStore();
   const onSubmitUserForm = (formData) => {
     console.log(formData);
     updateUser(formData);
   };
-
+  console.log(isModalWindowOpen);
   const onSubmitAvatar = (e) => {
     e.preventDefault();
     console.log(e.target.files[0]);
@@ -40,6 +40,7 @@ export default function Profile() {
     <div className={S.wrapper}>
       <div className={S.container}>
         <Header />
+        {isModalWindowOpen && <AddNewAt />}
         <main className={S.main}>
           <div className={S.main__container}>
             <div className={S.main__center_block}>

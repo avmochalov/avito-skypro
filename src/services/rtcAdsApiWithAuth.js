@@ -10,21 +10,36 @@ export const adsApiAuth = createApi({
         method: "POST",
         body: formData,
       }),
+      invalidatesTags: ["Add", 'Img'],
     }),
     addAdsImg: builder.mutation({
-      query: ( {adsId, body}) => ({
+      query: ({ adsId, body }) => ({
         url: `ads/${adsId}/image`,
         headers: { formData: true },
-        method: 'POST',
+        method: "POST",
         body,
       }),
+      invalidatesTags: ["Img"],
     }),
     getUsersAds: builder.query({
-      query: ( ) => ({
+      query: () => ({
         url: `ads/me`,
       }),
+      providesTags: ["Delete", 'Add'],
+    }),
+    deleteAds: builder.mutation({
+      query: (id) => ({
+        url: `ads/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Delete"],
     }),
   }),
 });
 
-export const { useAddAdsMutation,useAddAdsImgMutation, useGetUsersAdsQuery } = adsApiAuth;
+export const {
+  useAddAdsMutation,
+  useAddAdsImgMutation,
+  useGetUsersAdsQuery,
+  useDeleteAdsMutation,
+} = adsApiAuth;

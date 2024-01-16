@@ -1,4 +1,4 @@
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import S from "./article.module.scss";
 import {
   useGetAdsByIdQuery,
@@ -13,23 +13,35 @@ import {
   declensionCommentWord,
 } from "../../services/helpers";
 import ArticleImgBar from "../../components/articleImgBar/articleImgBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
+import { useGetUserQuery } from "../../services/rtcUserApi";
+import { useDeleteAdsMutation } from "../../services/rtcAdsApiWithAuth";
 
 export default function Article() {
+  const navigate = useNavigate();
   const params = useParams();
   const [isPhoneNumberOpen, setIsPhoneNumberOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [deleteAds] = useDeleteAdsMutation();
   const { data = [], isLoading } = useGetAdsByIdQuery(params.id);
+  const { data: user, isLoading: isUserLoading } = useGetUserQuery();
   const { data: comments, isLoading: isCommentsLoading } =
     useGetAllAdsCommentsQuery(params.id);
   console.log(params.id);
-  {
-    !isLoading && console.log(data);
-  }
+
+  useEffect(() => {
+    {
+      !isUserLoading && setUserId(user.id);
+    }
+  }, [isUserLoading]);
+
+  console.log(userId);
+  console.log(data);
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
-        <Header/>
+        <Header />
         {!isLoading && (
           <main className={S.main}>
             <div className={S.main__container}>
@@ -94,32 +106,59 @@ export default function Article() {
                         target="_blank"
                         rel=""
                       >
-                        {!isCommentsLoading && 
+                        {!isCommentsLoading &&
                           declensionCommentWord(comments.length)}
                       </a>
                     </div>
                     <p className={S.article__price}>
                       {convertPrice(data.price)}
                     </p>
-                    <button
-                      className={`${S.article__btn} ${S.btn_hov02}`}
-                      onClick={() => setIsPhoneNumberOpen(!isPhoneNumberOpen)}
-                    >
-                      Показать&nbsp;телефон
-                      {isPhoneNumberOpen ? (
-                        <span>{data.user.phone}</span>
-                      ) : (
-                        <span>{closePhone(data.user.phone)}</span>
-                      )}
-                    </button>
+
+                    {data.user.id === userId ? (
+                      <div className={S.article__btn_block}>
+                        <button
+                          className={`${S.article__btn} ${S.btn_redact} ${S.btn_hov02}`}
+                        >
+                          Редактировать
+                        </button>
+                        <button
+                          className={`${S.article__btn} ${S.btn_remove} ${S.btn_hov02}`}
+                          onClick={() => {
+                            deleteAds(data.id).then(()=> navigate("/profile"));
+                            
+                          }}
+                        >
+                          Снять с публикации
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        className={`${S.article__btn} ${S.btn_hov02}`}
+                        onClick={() => setIsPhoneNumberOpen(!isPhoneNumberOpen)}
+                      >
+                        Показать&nbsp;телефон
+                        {isPhoneNumberOpen ? (
+                          <span>{data.user.phone}</span>
+                        ) : (
+                          <span>{closePhone(data.user.phone)}</span>
+                        )}
+                      </button>
+                    )}
+
                     <div className={`${S.article__author} ${S.author}`}>
                       <div className={S.author__img}>
                         <img src="" alt="" />
                       </div>
                       <div className={S.author__cont}>
-                      <NavLink to={"/seller-profile/" + data.user.id}>
-                        <p className={S.author__name}>{data.user.name}</p>
-                      </NavLink>
+                        <NavLink
+                          to={
+                            data.user.id === userId
+                              ? "/profile"
+                              : "/seller-profile/" + data.user.id
+                          }
+                        >
+                          <p className={S.author__name}>{data.user.name}</p>
+                        </NavLink>
                         <p className={S.author__about}>
                           {"Продает товары с " +
                             salesStartDate(data.user.sells_from)}
