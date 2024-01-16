@@ -1,11 +1,17 @@
 import { useForm } from "react-hook-form";
 import S from "./addnewat.module.scss";
-import { useAddAdsMutation } from "../../../services/rtcAdsApiWithAuthjs";
+import {
+  useAddAdsImgMutation,
+  useAddAdsMutation,
+} from "../../../services/rtcAdsApiWithAuth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function AddNewAt() {
   const [imgArray, setImgArray] = useState([]);
   const [imgUrlArray, setImgUrlArray] = useState([]);
   const [addAds] = useAddAdsMutation();
+  const [addAdsImg] = useAddAdsImgMutation();
+  const navigate = useNavigate();
   const fileReader = new FileReader();
   const {
     register,
@@ -15,22 +21,34 @@ export default function AddNewAt() {
 
   const onSubmitAdForm = (formData) => {
     console.log(formData);
-    addAds(formData);
+    addAds(formData)
+      .unwrap()
+      .then((res) => {
+        const adsId = res.id;
+        const fileCount = imgArray.length > 5 ? 5 : imgArray.length;
+        console.log(adsId);
+        // console.log('Я отрабатываю')
+        for (let i = 0; i < fileCount; i++) {
+          console.log(fileCount);
+          console.log(imgArray);
+          const body = new FormData();
+          body.append("file", imgArray[i]);
+          console.log(body);
+          addAdsImg({ adsId, body });
+        }
+        navigate(`/article/${adsId}`);
+      });
   };
 
   const onSubmitAdsImg = (e) => {
-    setImgArray(e.target.files);
+    setImgArray([...imgArray, e.target.files[0]]);
     fileReader.readAsDataURL(e.target.files[0]);
   };
 
-  console.log(imgArray[0]);
-  console.log(imgArray.length > 0);
   fileReader.onloadend = () => {
-    console.log(fileReader.result);
     setImgUrlArray([...imgUrlArray, fileReader.result]);
   };
 
-  console.log(imgUrlArray);
   return (
     <div className={S.wrapper}>
       <div className={S.container_bg}>
@@ -94,8 +112,8 @@ export default function AddNewAt() {
 
                 <div className={S.form_newArt__bar_img}>
                   {imgArray.length > 0 &&
-                    imgUrlArray.map((url) => (
-                      <div className={S.form_newArt__img}>
+                    imgUrlArray.map((url, index) => (
+                      <div key={index} className={S.form_newArt__img}>
                         <img src={url} alt="" />
                         <div className={S.form_newArt__img_cover}></div>
                       </div>

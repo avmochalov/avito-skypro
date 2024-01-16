@@ -14,6 +14,7 @@ import {
 } from "../../services/helpers";
 import ArticleImgBar from "../../components/articleImgBar/articleImgBar";
 import { useState } from "react";
+import Header from "../../components/header/Header";
 
 export default function Article() {
   const params = useParams();
@@ -28,25 +29,7 @@ export default function Article() {
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
-        <header className={S.header}>
-          <nav className={S.header__nav}>
-            <div className={`${S.header__logo} ${S.logo_mob}`}>
-              <a className={S.logo_mob__link} href="" target="_blank">
-                <img className={S.logo_mob__img} src={logo} alt="logo" />
-              </a>
-            </div>
-            <button
-              className={`${S.header__btn_putAd} ${S.btn_hov01}`}
-              id="btputAd"
-            >
-              Разместить объявление
-            </button>
-            <button className={`${S.header__btn_lk} ${S.btn_hov01}`} id="btnlk">
-              Личный кабинет
-            </button>
-          </nav>
-        </header>
-
+        <Header/>
         {!isLoading && (
           <main className={S.main}>
             <div className={S.main__container}>
