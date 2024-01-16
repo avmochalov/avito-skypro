@@ -59,7 +59,6 @@ export default function Profile() {
                   </NavLink>
                 </form>
               </div>
-
               {!isUserLoading && (
                 <>
                   {" "}

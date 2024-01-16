@@ -5,11 +5,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Signin() {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     signinUser(data)
       .then((res) => {
@@ -19,6 +21,7 @@ export default function Signin() {
       })
       .catch((error) => alert(error.response.data.detail));
   };
+  
   return (
     <div className={S.wrapper}>
       <div className={S.container_enter}>

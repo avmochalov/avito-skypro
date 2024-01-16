@@ -7,6 +7,7 @@ import MyArticle from "./pages/my-article/my-article";
 import Profile from "./pages/profile/profile";
 import Signin from "./pages/signin/signin";
 import Signup from "./pages/signup/signup";
+import AddNewAt from "./components/modal/addnewat/addnewat";
 
 function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ function AppRoutes() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/my-article" element={<MyArticle />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/addnewat" element={<AddNewAt />} />
       {/* <Route element={<ProtectedRoute />}> */}
       {/* <Route path="/workout" element={<Workout />} />
           <Route path="/profile" element={<Profile />} /> */}

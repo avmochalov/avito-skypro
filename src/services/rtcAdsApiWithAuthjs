@@ -1,0 +1,17 @@
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithReauth } from "./baseQueryWithReauth";
+export const adsApiAuth = createApi({
+  reducerPath: "adsApiAuth",
+  baseQuery: baseQueryWithReauth,
+  endpoints: (builder) => ({
+    addAds: builder.mutation({
+      query: ( formData) => ({
+        url: `adstext`,
+        method: "POST",
+        body: formData,
+      }),
+    }),
+  }),
+});
+
+export const { useAddAdsMutation } = adsApiAuth;
