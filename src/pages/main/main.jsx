@@ -4,10 +4,13 @@ import CardItem from "../../components/cardItem/cardItem";
 import S from "./main.module.scss";
 import { useGetAdsQuery } from "../../services/rtcAdsApi";
 import Header from "../../components/header/Header";
+import AddNewAt from "../../components/modal/addnewat/addnewat";
+import { adminStore } from "../../services/zustand";
 export default function Main() {
   const { data = [], isLoading } = useGetAdsQuery();
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const { isModalWindowOpen } = adminStore();
   useEffect(() => {
     setSearchResult(
       data.filter((el) => {
@@ -26,6 +29,7 @@ export default function Main() {
     <div className={S.wrapper}>
       <div className={S.container}>
 <Header/>
+{isModalWindowOpen && <AddNewAt />}
         <main className={S.main}>
           <div className={`${S.main__search} ${S.search}`}>
             <a className={S.search__logo_link} href="#" target="_blank">

@@ -12,13 +12,16 @@ import {
 import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CardItem from "../../components/cardItem/cardItem";
+import Header from "../../components/header/Header";
+import AddNewAt from "../../components/modal/addnewat/addnewat";
+import { adminStore } from "../../services/zustand";
 // import { getUserData } from "../../api/userApi";
 // import { refreshUserData } from "../../services/helpers";
 export default function SellerProfile() {
   const params = useParams();
   const [userData, setUserData] = useState({});
   const [isPhoneNumberOpen, setIsPhoneNumberOpen] = useState(false);
-
+  const { isModalWindowOpen } = adminStore();
   const { data: users, isLoading: isUsersLoading } = useGetAllUsersQuery();
   const { data: userAds, isLoading: isUserAdsLoading } =
     useGetAllAdsByUserQuery(params.id);
@@ -35,25 +38,8 @@ export default function SellerProfile() {
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
-        <header className={S.header}>
-          <nav className={S.header__nav}>
-            <div className={`${S.header__logo} ${S.logo_mob}`}>
-              <a className={S.logo_mob__link} href="" target="_blank">
-                <img className={S.logo_mob__img} src={logo} alt="logo" />
-              </a>
-            </div>
-            <button
-              className={`${S.header__btn_putAd} ${S.btn_hov01}`}
-              id="btputAd"
-            >
-              Разместить объявление
-            </button>
-            <button className={`${S.header__btn_lk} ${S.btn_hov01}`} id="btnlk">
-              Личный кабинет
-            </button>
-          </nav>
-        </header>
-
+<Header/>
+        {isModalWindowOpen && <AddNewAt />}
         <main className={S.main}>
           <div className={S.main__container}>
             <div className={S.main__center_block}>

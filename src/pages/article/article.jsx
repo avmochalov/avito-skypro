@@ -17,12 +17,15 @@ import { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import { useGetUserQuery } from "../../services/rtcUserApi";
 import { useDeleteAdsMutation } from "../../services/rtcAdsApiWithAuth";
+import AddNewAt from "../../components/modal/addnewat/addnewat";
+import { adminStore } from "../../services/zustand";
 
 export default function Article() {
   const navigate = useNavigate();
   const params = useParams();
   const [isPhoneNumberOpen, setIsPhoneNumberOpen] = useState(false);
   const [userId, setUserId] = useState(null);
+  const { isModalWindowOpen } = adminStore();
   const [deleteAds] = useDeleteAdsMutation();
   const { data = [], isLoading } = useGetAdsByIdQuery(params.id);
   const { data: user, isLoading: isUserLoading } = useGetUserQuery();
@@ -42,6 +45,7 @@ export default function Article() {
     <div className={S.wrapper}>
       <div className={S.container}>
         <Header />
+        {isModalWindowOpen && <AddNewAt />}
         {!isLoading && (
           <main className={S.main}>
             <div className={S.main__container}>
