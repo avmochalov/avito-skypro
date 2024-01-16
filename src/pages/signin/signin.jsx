@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import S from "./signin.module.scss";
 import { signinUser } from "../../api/userApi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Signin() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,6 +15,7 @@ export default function Signin() {
       .then((res) => {
         console.log(res);
         localStorage.setItem("auth_data", JSON.stringify(res.data));
+        navigate("/");
       })
       .catch((error) => alert(error.response.data.detail));
   };
@@ -70,6 +72,7 @@ export default function Signin() {
             {errors && errors.password && (
               <span className="text-[red]">{errors.password.message}</span>
             )}
+
             <button className={S.modal__btn_enter} id="btnEnter">
               <a>Войти</a>{" "}
             </button>

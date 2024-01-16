@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import {
   useGetUserQuery,
   useUpdateUserMutation,
+  useUploadAvatarMutation,
 } from "../../services/rtcUserApi";
 import S from "./profile.module.scss";
 import { NavLink } from "react-router-dom";
@@ -12,11 +13,22 @@ import Header from "../../components/header/Header";
 
 export default function Profile() {
   const [updateUser] = useUpdateUserMutation();
+  const [uploadAvatar] = useUploadAvatarMutation();
   const { register, handleSubmit } = useForm();
-  const onSubmit = (formData) => {
-    console.log(formData)
+  const onSubmitUserForm = (formData) => {
+    console.log(formData);
     updateUser(formData);
   };
+
+  const onSubmitAvatar = (e) => {
+    e.preventDefault();
+    console.log(e.target.files[0]);
+    const body = new FormData();
+    body.append("file", e.target.files[0]);
+    console.log(body);
+    uploadAvatar({ body });
+  };
+
   const { data: user, isLoading: isUserLoading } = useGetUserQuery();
   {
     !isUserLoading && console.log(user);
@@ -24,7 +36,7 @@ export default function Profile() {
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
-        <Header/>
+        <Header />
         <main className={S.main}>
           <div className={S.main__container}>
             <div className={S.main__center_block}>
@@ -37,13 +49,13 @@ export default function Profile() {
                   />
                 </a>
                 <form className={S.menu__form} action="#">
-                <NavLink to={"/"}>
-                  <button
-                    className={`${S.menu__btn} ${S.btn_hov02}`}
-                    id="btnGoBack"
-                  >
-                    Вернуться на&nbsp;главную
-                  </button>
+                  <NavLink to={"/"}>
+                    <button
+                      className={`${S.menu__btn} ${S.btn_hov02}`}
+                      id="btnGoBack"
+                    >
+                      Вернуться на&nbsp;главную
+                    </button>
                   </NavLink>
                 </form>
               </div>
@@ -61,22 +73,34 @@ export default function Profile() {
                         <div className={S.settings__left}>
                           <div className={S.settings__img}>
                             <a href="" target="_self">
-                              <img src="#" alt="" />
+                              <img
+                                src={
+                                  user.avatar
+                                    ? "http://localhost:8090/" + user.avatar
+                                    : "#"
+                                }
+                                alt=""
+                              />
                             </a>
                           </div>
-                          <a
-                            className={S.settings__change_photo}
-                            href=""
-                            target="_self"
+                          <label
+                            htmlFor="file-upload"
+                            className={S.custom_file_upload}
                           >
-                            Заменить
-                          </a>
+                            <i className={S.settings__change_photo}>Заменить</i>
+                          </label>
+                          <input
+                            className={S.input_file}
+                            id="file-upload"
+                            type="file"
+                            onChange={(e) => onSubmitAvatar(e)}
+                          />
                         </div>
                         <div className={S.settings__right}>
                           <form
                             className={S.settings__form}
                             action="#"
-                            onSubmit={handleSubmit(onSubmit)}
+                            onSubmit={handleSubmit(onSubmitUserForm)}
                           >
                             <div className={S.settings__div}>
                               <label htmlFor="fname">Имя</label>

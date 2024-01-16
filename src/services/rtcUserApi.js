@@ -18,7 +18,16 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+    uploadAvatar: builder.mutation({
+      query: ({ body }) => ({
+        url: 'user/avatar',
+        headers: { formData: true },
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['User'],
+    }),
   }),
 });
 
-export const { useGetUserQuery, useUpdateUserMutation } = userApi;
+export const { useGetUserQuery, useUpdateUserMutation, useUploadAvatarMutation } = userApi;

@@ -26,9 +26,11 @@ export default function Header() {
             >
               Разместить объявление
             </button>
+            <NavLink to="/profile">
             <button className={`${S.header__btn_lk} ${S.btn_hov01}`} id="btnlk">
               Личный кабинет
             </button>
+            </NavLink>
             <button
               className={`${S.header__btn_lk} ${S.btn_hov01}`}
               id="btnlk"
