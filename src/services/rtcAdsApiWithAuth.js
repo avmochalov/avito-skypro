@@ -25,6 +25,7 @@ export const adsApiAuth = createApi({
       query: () => ({
         url: "ads",
       }),
+      providesTags: ["Add","Delete", "Img"],
     }),
     getUsersAds: builder.query({
       query: () => ({

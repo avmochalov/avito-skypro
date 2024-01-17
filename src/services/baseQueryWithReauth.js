@@ -5,8 +5,7 @@ export const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:8090/",
     prepareHeaders: (headers) => {
-      const token = JSON.parse(localStorage.getItem("auth_data")).access_token;
-      if (token) {
+      if (JSON.parse(localStorage.getItem("auth_data"))) {
         headers.set(
           "Authorization",
           `Bearer ${JSON.parse(localStorage.getItem("auth_data")).access_token}`
