@@ -10,7 +10,7 @@ export const adsApiAuth = createApi({
         method: "POST",
         body: formData,
       }),
-      invalidatesTags: ["Add", "Img"],
+      invalidatesTags: ["Add"],
     }),
     addAdsImg: builder.mutation({
       query: ({ adsId, body }) => ({
@@ -21,11 +21,16 @@ export const adsApiAuth = createApi({
       }),
       invalidatesTags: ["Img"],
     }),
+    getAds: builder.query({
+      query: () => ({
+        url: "ads",
+      }),
+    }),
     getUsersAds: builder.query({
       query: () => ({
         url: `ads/me`,
       }),
-      providesTags: ["Delete", "Add"],
+      providesTags: ["Delete", "Add", "Img"],
     }),
     deleteAds: builder.mutation({
       query: (id) => ({
@@ -48,6 +53,28 @@ export const adsApiAuth = createApi({
       }),
       providesTags: ["Comment"],
     }),
+    getAdsById: builder.query({
+      query: (id) => ({
+        url: "ads/" + id,
+      }),
+      providesTags: ["removeImg", "Edit", "Img"],
+    }),
+    deleteImg: builder.mutation({
+      query: ({ adsId, file_url }) => ({
+        url: `ads/${adsId}/image`,
+        params: file_url,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["removeImg"],
+    }),
+    editAds: builder.mutation({
+      query: ({ adsId, formData }) => ({
+        url: `ads/${adsId}`,
+        method: "PATCH",
+        body: formData,
+      }),
+      invalidatesTags: ["Edit"],
+    }),
   }),
 });
 
@@ -58,4 +85,8 @@ export const {
   useDeleteAdsMutation,
   useGetAllAdsCommentsQuery,
   useAddCommentMutation,
+  useGetAdsQuery,
+  useGetAdsByIdQuery,
+  useDeleteImgMutation,
+  useEditAdsMutation,
 } = adsApiAuth;

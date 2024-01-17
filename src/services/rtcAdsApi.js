@@ -5,16 +5,7 @@ export const adsApi = createApi({
     baseUrl: "http://localhost:8090/",
   }),
   endpoints: (builder) => ({
-    getAds: builder.query({
-      query: () => ({
-        url: "ads",
-      }),
-    }),
-    getAdsById: builder.query({
-      query: (id) => ({
-        url: "ads/" + id,
-      }),
-    }),
+
     getAllUsers: builder.query({
       query: () => ({
         url: "user/all",

@@ -24,7 +24,7 @@ export default function Reviews({ setIsCommentWindowOpen, comments, adsId }) {
           <div className={S.modal__btn_close_line}></div>
         </div>
         <div className={S.modal__scroll}>
-          <form
+{localStorage.getItem('auth_data')     &&     <form
             className={`${S.modal__form_newArt} ${S.form_newArt}`}
             id="formNewArt"
             action="#"
@@ -56,7 +56,7 @@ export default function Reviews({ setIsCommentWindowOpen, comments, adsId }) {
             >
               Опубликовать
             </button>
-          </form>
+          </form>}
           <div className={`${S.modal__reviews} ${S.reviews}`}>
             {comments.map((comment, index) => (
               <div key={index} className={`${S.reviews__review} ${S.reviews}`}>

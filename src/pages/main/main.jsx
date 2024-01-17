@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CardItem from "../../components/cardItem/cardItem";
 import S from "./main.module.scss";
-import { useGetAdsQuery } from "../../services/rtcAdsApi";
+import { useGetAdsQuery } from "../../services/rtcAdsApiWithAuth";
 import Header from "../../components/header/Header";
 import AddNewAt from "../../components/modal/addnewat/addnewat";
 import { adminStore } from "../../services/zustand";

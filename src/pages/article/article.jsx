@@ -1,6 +1,6 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import S from "./article.module.scss";
-import { useGetAdsByIdQuery } from "../../services/rtcAdsApi";
+import { useGetAdsByIdQuery } from "../../services/rtcAdsApiWithAuth";
 import logo from "../../../public/img/logo.png";
 import {
   closePhone,
@@ -20,6 +20,7 @@ import {
 import AddNewAt from "../../components/modal/addnewat/addnewat";
 import { adminStore } from "../../services/zustand";
 import Reviews from "../../components/modal/reviews/reviews";
+import EditAt from "../../components/modal/editat /editat";
 
 export default function Article() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function Article() {
   const [isPhoneNumberOpen, setIsPhoneNumberOpen] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isCommentWindowOpen, setIsCommentWindowOpen] = useState(false);
+  const [isEditWindowOpen, setIsEditWindowOpen] = useState(false);
   const { isModalWindowOpen } = adminStore();
   const [deleteAds] = useDeleteAdsMutation();
   const { data = [], isLoading } = useGetAdsByIdQuery(params.id);
@@ -56,6 +58,7 @@ export default function Article() {
             adsId={params.id}
           />
         )}
+        {isEditWindowOpen &&<EditAt setIsEditWindowOpen={setIsEditWindowOpen} data={data}/> }
         {!isLoading && (
           <main className={S.main}>
             <div className={S.main__container}>
@@ -133,6 +136,7 @@ export default function Article() {
                       <div className={S.article__btn_block}>
                         <button
                           className={`${S.article__btn} ${S.btn_redact} ${S.btn_hov02}`}
+                          onClick={()=> setIsEditWindowOpen(true)}
                         >
                           Редактировать
                         </button>
