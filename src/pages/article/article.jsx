@@ -1,9 +1,6 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import S from "./article.module.scss";
-import {
-  useGetAdsByIdQuery,
-  useGetAllAdsCommentsQuery,
-} from "../../services/rtcAdsApi";
+import { useGetAdsByIdQuery } from "../../services/rtcAdsApi";
 import logo from "../../../public/img/logo.png";
 import {
   closePhone,
@@ -16,15 +13,20 @@ import ArticleImgBar from "../../components/articleImgBar/articleImgBar";
 import { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import { useGetUserQuery } from "../../services/rtcUserApi";
-import { useDeleteAdsMutation } from "../../services/rtcAdsApiWithAuth";
+import {
+  useDeleteAdsMutation,
+  useGetAllAdsCommentsQuery,
+} from "../../services/rtcAdsApiWithAuth";
 import AddNewAt from "../../components/modal/addnewat/addnewat";
 import { adminStore } from "../../services/zustand";
+import Reviews from "../../components/modal/reviews/reviews";
 
 export default function Article() {
   const navigate = useNavigate();
   const params = useParams();
   const [isPhoneNumberOpen, setIsPhoneNumberOpen] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [isCommentWindowOpen, setIsCommentWindowOpen] = useState(false);
   const { isModalWindowOpen } = adminStore();
   const [deleteAds] = useDeleteAdsMutation();
   const { data = [], isLoading } = useGetAdsByIdQuery(params.id);
@@ -46,6 +48,14 @@ export default function Article() {
       <div className={S.container}>
         <Header />
         {isModalWindowOpen && <AddNewAt />}
+
+        {isCommentWindowOpen && (
+          <Reviews
+            setIsCommentWindowOpen={setIsCommentWindowOpen}
+            comments={comments}
+            adsId={params.id}
+          />
+        )}
         {!isLoading && (
           <main className={S.main}>
             <div className={S.main__container}>
@@ -104,15 +114,16 @@ export default function Article() {
                         {convertDate(data.created_on)}
                       </p>
                       <p className={S.article__city}>{data.user.city}</p>
-                      <a
+                      <p
                         className={S.article__link}
                         href=""
                         target="_blank"
                         rel=""
+                        onClick={() => setIsCommentWindowOpen(true)}
                       >
                         {!isCommentsLoading &&
                           declensionCommentWord(comments.length)}
-                      </a>
+                      </p>
                     </div>
                     <p className={S.article__price}>
                       {convertPrice(data.price)}
@@ -128,8 +139,7 @@ export default function Article() {
                         <button
                           className={`${S.article__btn} ${S.btn_remove} ${S.btn_hov02}`}
                           onClick={() => {
-                            deleteAds(data.id).then(()=> navigate("/profile"));
-                            
+                            deleteAds(data.id).then(() => navigate("/profile"));
                           }}
                         >
                           Снять с публикации

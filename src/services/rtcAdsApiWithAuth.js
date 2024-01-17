@@ -10,7 +10,7 @@ export const adsApiAuth = createApi({
         method: "POST",
         body: formData,
       }),
-      invalidatesTags: ["Add", 'Img'],
+      invalidatesTags: ["Add", "Img"],
     }),
     addAdsImg: builder.mutation({
       query: ({ adsId, body }) => ({
@@ -25,7 +25,7 @@ export const adsApiAuth = createApi({
       query: () => ({
         url: `ads/me`,
       }),
-      providesTags: ["Delete", 'Add'],
+      providesTags: ["Delete", "Add"],
     }),
     deleteAds: builder.mutation({
       query: (id) => ({
@@ -33,6 +33,20 @@ export const adsApiAuth = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["Delete"],
+    }),
+    addComment: builder.mutation({
+      query: ({ adsId, data }) => ({
+        url: `ads/${adsId}/comments`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Comment"],
+    }),
+    getAllAdsComments: builder.query({
+      query: (id) => ({
+        url: "ads/" + id + "/comments",
+      }),
+      providesTags: ["Comment"],
     }),
   }),
 });
@@ -42,4 +56,6 @@ export const {
   useAddAdsImgMutation,
   useGetUsersAdsQuery,
   useDeleteAdsMutation,
+  useGetAllAdsCommentsQuery,
+  useAddCommentMutation,
 } = adsApiAuth;

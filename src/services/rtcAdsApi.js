@@ -15,11 +15,6 @@ export const adsApi = createApi({
         url: "ads/" + id,
       }),
     }),
-    getAllAdsComments: builder.query({
-      query: (id) => ({
-        url: "ads/" + id + "/comments",
-      }),
-    }),
     getAllUsers: builder.query({
       query: () => ({
         url: "user/all",
@@ -36,7 +31,6 @@ export const adsApi = createApi({
 export const {
   useGetAdsQuery,
   useGetAdsByIdQuery,
-  useGetAllAdsCommentsQuery,
   useGetAllUsersQuery,
   useGetAllAdsByUserQuery,
 } = adsApi;
