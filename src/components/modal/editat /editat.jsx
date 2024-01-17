@@ -1,18 +1,20 @@
+/* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
-import S from "./addnewat.module.scss";
+import S from "./editat.module.scss";
 import {
   useAddAdsImgMutation,
-  useAddAdsMutation,
+  useDeleteImgMutation,
+  useEditAdsMutation,
 } from "../../../services/rtcAdsApiWithAuth";
 import { useState } from "react";
-import { adminStore } from "../../../services/zustand";
+import basket from "../../../assets/basket.svg";
 
-export default function AddNewAt() {
+export default function EditAt({ setIsEditWindowOpen, data }) {
   const [imgArray, setImgArray] = useState([]);
   const [imgUrlArray, setImgUrlArray] = useState([]);
-  const [addAds] = useAddAdsMutation();
+  const [editAds] = useEditAdsMutation();
   const [addAdsImg] = useAddAdsImgMutation();
-  const { setIsModalWindowOpen } = adminStore();
+  const [deleteImg] = useDeleteImgMutation();
   const fileReader = new FileReader();
   const {
     register,
@@ -22,10 +24,10 @@ export default function AddNewAt() {
 
   const onSubmitAdForm = (formData) => {
     console.log(formData);
-    addAds(formData)
+    const adsId = data.id;
+    editAds({ adsId, formData })
       .unwrap()
-      .then((res) => {
-        const adsId = res.id;
+      .then(() => {
         const fileCount = imgArray.length > 5 ? 5 : imgArray.length;
         console.log(adsId);
         for (let i = 0; i < fileCount; i++) {
@@ -36,7 +38,7 @@ export default function AddNewAt() {
           console.log(body);
           addAdsImg({ adsId, body });
         }
-        setIsModalWindowOpen(false);
+        setIsEditWindowOpen(false);
       });
   };
 
@@ -44,7 +46,10 @@ export default function AddNewAt() {
     setImgArray([...imgArray, e.target.files[0]]);
     fileReader.readAsDataURL(e.target.files[0]);
   };
-
+  const removeImg = (adsId, file_url) => {
+    console.log(file_url);
+    deleteImg({ adsId, file_url });
+  };
   fileReader.onloadend = () => {
     setImgUrlArray([...imgUrlArray, fileReader.result]);
   };
@@ -55,7 +60,7 @@ export default function AddNewAt() {
         <h3 className={S.modal__title}>Новое объявление</h3>
         <div
           className={S.modal__btn_close}
-          onClick={() => setIsModalWindowOpen(false)}
+          onClick={() => setIsEditWindowOpen(false)}
         >
           <div className={S.modal__btn_close_line}></div>
         </div>
@@ -72,6 +77,7 @@ export default function AddNewAt() {
               type="text"
               name="name"
               id="formName"
+              defaultValue={data.title}
               placeholder="Введите название"
               {...register("title", {
                 required: {
@@ -93,6 +99,7 @@ export default function AddNewAt() {
               cols="auto"
               rows="10"
               placeholder="Введите описание"
+              defaultValue={data.description}
               {...register("description", {
                 required: {
                   value: true,
@@ -110,15 +117,30 @@ export default function AddNewAt() {
             </p>
 
             <div className={S.form_newArt__bar_img}>
+              {data.images.length > 0 &&
+                data.images.map((img, index) => (
+                  <div key={index} className={S.form_newArt__img}>
+                    <img src={"http://localhost:8090/" + img.url} alt="" />
+                    <div
+                      className={S.delete_btn}
+                      onClick={() => removeImg(img.ad_id, 'file_url=' + img.url)}
+                    >
+                      <img src={basket} alt="" />
+                    </div>
+
+                    <div className={S.form_newArt__img_cover}></div>
+                  </div>
+                ))}
+
               {imgArray.length > 0 &&
+                imgArray.length < 5 - data.images.length &&
                 imgUrlArray.map((url, index) => (
                   <div key={index} className={S.form_newArt__img}>
                     <img src={url} alt="" />
                     <div className={S.form_newArt__img_cover}></div>
                   </div>
                 ))}
-
-              {imgUrlArray.length < 5 && (
+              {data.images.length < 5 && (
                 <div className={S.form_newArt__img}>
                   <input
                     className={S.file_input}
@@ -138,6 +160,7 @@ export default function AddNewAt() {
               type="number"
               name="price"
               id="formName"
+              defaultValue={data.price}
               {...register("price", {
                 required: {
                   value: true,

@@ -1,22 +1,43 @@
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import CardItem from "../../components/cardItem/cardItem";
 import S from "./main.module.scss";
+import { useGetAdsQuery } from "../../services/rtcAdsApiWithAuth";
+import Header from "../../components/header/Header";
+import AddNewAt from "../../components/modal/addnewat/addnewat";
+import { adminStore } from "../../services/zustand";
 export default function Main() {
+  const { data = [], isLoading } = useGetAdsQuery();
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  const { isModalWindowOpen } = adminStore();
+  useEffect(() => {
+    setSearchResult(
+      data.filter((el) => {
+        return el.title.toLowerCase().includes(searchValue.toLowerCase());
+      })
+    );
+  }, [searchValue, isLoading]);
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (resultData) => {
+    setSearchValue(resultData.value);
+  };
+  console.log(searchResult);
+  console.log(searchValue);
+  // console.log(adsList);
   return (
     <div className={S.wrapper}>
       <div className={S.container}>
-        <header className={S.header}>
-          <nav className={S.header__nav}>
-            <button
-              className={`${S.header__btn_main_enter} ${S.btn_hov01}`}
-              id="btnMainEnter"
-            >
-              Вход в личный кабинет
-            </button>
-          </nav>
-        </header>
+<Header/>
+{isModalWindowOpen && <AddNewAt />}
         <main className={S.main}>
           <div className={`${S.main__search} ${S.search}`}>
             <a className={S.search__logo_link} href="#" target="_blank">
-              <img className={S.search__logo_img} src="img/logo.png" alt="logo" />
+              <img
+                className={S.search__logo_img}
+                src="img/logo.png"
+                alt="logo"
+              />
             </a>
             <a className={S.search__logo_mob_link} href="#" target="_blank">
               <img
@@ -25,20 +46,30 @@ export default function Main() {
                 alt="logo"
               />
             </a>
-            <form className={S.search__form} action="#">
+            <form
+              className={S.search__form}
+              action="#"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <input
                 className={S.search__text}
                 type="search"
                 placeholder="Поиск по объявлениям"
                 name="search"
+                {...register("value")}
               />
               <input
                 className={S.search__text_mob}
                 type="search"
                 placeholder="Поиск"
                 name="search-mob"
+                onChange={(event) => {
+                  setSearchValue(event.target.value);
+                }}
               />
-              <button className={`${S.search__btn} ${S.btn_hov02}`}>Найти</button>
+              <button className={`${S.search__btn} ${S.btn_hov02}`}>
+                Найти
+              </button>
             </form>
           </div>
           <div className={S.main__container}>
@@ -46,205 +77,7 @@ export default function Main() {
 
             <div className={S.main__content}>
               <div className={`${S.content__cards} ${S.cards}`}>
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={S.cards__item}>
-                  <div className={`${S.cards__card} ${S.card}`}>
-                    <div className={S.card__image}>
-                      <a href="#" target="_blank">
-                        <img src="#" alt="picture" />
-                      </a>
-                    </div>
-                    <div className={S.card__content}>
-                      <a href="" target="_blank">
-                        <h3 className={S.card__title}>
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                      <p className={S.card__place}>Санкт Петербург</p>
-                      <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
+                <CardItem adsList={searchResult} />
               </div>
             </div>
           </div>
