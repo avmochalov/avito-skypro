@@ -123,7 +123,7 @@ export default function EditAt({ setIsEditWindowOpen, data }) {
                     <img src={"http://localhost:8090/" + img.url} alt="" />
                     <div
                       className={S.delete_btn}
-                      onClick={() => removeImg(img.ad_id, img.url)}
+                      onClick={() => removeImg(img.ad_id, 'file_url=' + img.url)}
                     >
                       <img src={basket} alt="" />
                     </div>
