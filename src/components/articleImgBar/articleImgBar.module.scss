@@ -1,0 +1,119 @@
+.article {
+
+    &__left {
+        max-width: 480px;        
+        margin-right: 54px;
+    }
+
+    &__fill_img {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__img {
+        width: 480px;
+        height: 480px;        
+        background-color: #F0F0F0;
+        margin: 0 5px;
+
+        & img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+    }
+    &__img_bar_mob{
+        display: none;
+    }
+    &__img_bar {
+        margin-top: 30px;
+        width: 490px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: left;
+        overflow: hidden;
+        margin-left: -5px;
+    }
+
+    &__img_bar_div {
+        width: 88px;
+        min-width: 88px;
+        height: 88px;
+        background-color: #F0F0F0;
+        border: 2px solid #F0F0F0;
+        margin: 0 5px;
+
+        & img {
+                width: 100%;
+                height: auto;
+                display: block;
+                object-fit: cover;
+            }
+    }
+
+    &__right {
+        max-width: 621px;
+    }
+
+    &__block {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        margin-bottom: 10px;
+    }
+
+    &__info {
+        margin-bottom: 34px;
+    }
+
+    &__date,
+    &__city {
+        font-size: 16px;
+        line-height: 21px;
+        color: #5F5F5F;
+        margin-bottom: 4px;
+    }
+    &__link {
+        font-size: 16px;
+        line-height: 21px;
+        color: #009EE4;              
+    }
+
+    &__price {
+        font-size: 28px;
+        line-height: 39px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+    &__btn {
+        background-color: #009EE4;
+        border-radius: 6px;
+        border: 1px solid #009EE4;
+        width: 214px;
+        height: 62px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 22px;
+        color: #FFFFFF;
+        font-family: 'Roboto', sans-serif;
+         & span {
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+         }      
+    }
+
+    &__author {
+        margin-top: 34px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
